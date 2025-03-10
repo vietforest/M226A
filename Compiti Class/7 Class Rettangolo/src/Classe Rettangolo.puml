@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam classAttributeIconSize 0
+
+class Rettangolo{
+    -LatoMaggiore: int
+    -LatoMinore: int
+
+    +Rettangolo(latoMaggiore: int, latoMinore: int)
+    +getArea():int
+    +getPerimeter():int
+    +getDiagonale():int
+    +toString():String
+
+    +getLatoMaggiore():int
+    +setLatoMaggiore(int)
+    +getLatoMinore():int
+    +setLatoMinore(int)
+
+
+}
+
+@enduml

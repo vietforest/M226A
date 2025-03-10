@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+class Star{
+    -name: String
+    -luminosity: long
+    -mass: long
+    -volume: long
+    -age: long
+    +Star(name: String, luminosity: long, mass: long, age: long)
+    +getName():String
+    +setName(String)
+    +getLuminosity():long
+    +setLuminosity(long)
+    +getMass():long
+    +setMass(long)
+    +getVolume():long
+    +setVolume(long)
+    +getAge():long
+    +setAge(long)
+}
+
+
+
+
+@enduml
