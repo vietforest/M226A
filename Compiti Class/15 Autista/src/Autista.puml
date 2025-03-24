@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+skinparam classAttributeIconSize 0
+
+class Veicolo{
+    -Modello: string
+    -Marca: string
+    -Targa: string
+    +Veicolo(String modello, String marca, String targa)
+}
+
+class Sede{
+    -NPA: int
+    -Indirizzo: string
+    -Telefono: string
+    -Sede(int NPA, String inidrizzo, String telefono)
+    +getTelefono():String
+    +setTelefono(String telefono)
+}
+
+class Autista{
+    -Nome:String
+    -Cognome:String
+    -Veicolo:Atuo
+    -Sede:sede
+    +Autista(String nome, String cognome, Veicolo veicolo, Sede sede)
+
+}
+
+Veicolo"1" -- "1"Autista
+Sede"1" -- "1"Autista
+@enduml
