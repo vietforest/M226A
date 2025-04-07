@@ -34,6 +34,10 @@ public class Player {
         this.playlist = playlist;
     }
 
+    /**
+     * To the next song
+     * */
+
     public void Successivo(){
         if (indexList + 1 < playlist.getNumeroBrani()){
             indexList++;
@@ -41,9 +45,11 @@ public class Player {
         }else {
             System.out.println("📢 Sei già all'ultimo brano.");
         }
-
     }
 
+    /**
+     * To the song before
+     * */
     public void precedente() {
         if (indexList  > 0) {
             indexList --;
@@ -53,6 +59,9 @@ public class Player {
         }
     }
 
+    /**
+     * To print all the information
+     * */
     public void play() {
         Brano brano = playlist.getBrani(indexList);
         if (brano != null) {
@@ -62,6 +71,12 @@ public class Player {
         }
     }
 
+    /**
+     * Choose the song
+     *
+     * @param n the index of the list
+     *
+     * */
     public void selezionaBrano(int n) {
         if (n >= 0 && n < playlist.getNumeroBrani()) {
             indexList = n;
@@ -70,4 +85,6 @@ public class Player {
             System.out.println("❌ Posizione non valida.");
         }
     }
+
+
 }

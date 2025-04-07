@@ -1,0 +1,49 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam classAttributeIconSize 0
+
+class Brano{
+    -title:String
+    -autore:String
+
+    +Brano(String autore, String title)
+    +setAutore(String autore)
+    +getAutore():String
+    +setTitle(String title)
+    +getTitle():String
+}
+
+class Playlist{
+    -List<Brano> brani;
+    -String titolo;
+
+    +Playlist(String)
+    +getBrani(int):Brano
+    +getTitle():String
+    +setTitle(String):void
+    +addBrani(Brano):void
+    +getNumeroBrani():int
+}
+
+class Player{
+    -String modello
+    -String marca
+    -String playlist
+
+    +getModello():String
+    +setModello(String modello):void
+    +getMarca():String
+    +setMarca(String marca)
+    +getPlaylist()
+    +setPlaylist(Playlist playlist)
+    +Successivo():void
+    +precedente():void
+    +play():void
+    +selezionaBrano(int n):void
+}
+
+Playlist "1" o-- "n" Brano
+Player "1" o-- "n" Playlist
+
+@enduml

@@ -1,5 +1,13 @@
 public class Main {
+
+
+
+    /**
+     * Content: Lettore Multimediale
+     * @authur huynh anh nguyen
+     * @version 07.04.2025*/
     public static void main(String[] args) {
+
         Brano b1 = new Brano("Bohemian Rhapsody", "Queen");
         Brano b2 = new Brano("Imagine", "John Lennon");
         Brano b3 = new Brano("Hotel California", "Eagles");
