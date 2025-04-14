@@ -1,0 +1,54 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam classAttributeIconSize 0
+
+class Produttore{
+    -nome:String
+    -indirizzo:String
+
+    +Produttore(String nome, String indirizzo)
+    +getNome():String
+    +getIndirizzo():String
+    +setNome(String nome):void
+    +setIndirizzo(String indirizzo):void
+}
+
+class Articolo{
+    -nome:String;
+    -produttore:Produttore;
+    -annoProduzione:int;
+    -descrizione:String
+    -quantita:int;
+    -identificatore:String;
+    +Articolo(String nome, Produttore produttore, int annoProduzione, String descrizione, int quantita)
+    +getNome():String
+    +getProduttore():produttore
+    +getAnnoProduzione():int
+    +getDescrizione():String
+    +getQuantita():int
+    +getIdentificatore():String
+    +setNome(String nome):void
+    +setProduttore(Produttore produttore):void
+    +setAnnoProduzione(int annoProduzione):void
+    +setDescrizione(String descrizione):void
+    +setQuantita(int quantita):void
+    +setIdentificatore(String identificatore):void
+    +toString():String
+}
+
+class Magazzino{
+    -ArrayList<Articolo>:Articolo;
+    +Magazzino();
+    +addArticolo(Articolo art):void
+    +removeArticolo(Articolo art):void
+    +modificareQuantitta (Articolo articolo ,int quantita):void
+    +ricercaIdentificatore (String identificatore):void
+    +getArticoloList():Articolo;
+    +setArticoloList(ArrayList<Articolo> articoloList):void
+}
+
+Produttore -- Articolo
+Magazzino"1" o-- "*"Articolo
+
+@enduml
