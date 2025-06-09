@@ -49,6 +49,9 @@ public class UI {
         }
     }
 
+    /**
+     * it doesn't have anything except to initialize the loop of UI
+     */
     public void Start(){
         switch (menuCase) {
             case 0:
@@ -93,6 +96,9 @@ public class UI {
         }
     }
 
+    /**
+     * it shows all the options of the menu
+     */
     public void Option0(){
         System.out.printf("--------------------------------%n");
         System.out.printf("Library         %n");
@@ -121,16 +127,22 @@ public class UI {
         }
     }
 
+    /**
+     * to list all the books
+     */
     public void Option1(){
-        System.out.printf("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
-        System.out.printf("| %-40s | %-40s | %-40s | %-40s | %-20s | %-4s | %n", "Title", "ISBN", "Author", "Publisher", "Genre", "Quantity");
+        System.out.printf("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
+        System.out.printf("| %-40s | %-40s | %-40s | %-40s | %-20s |  %-20s | %-4s | %n", "Title", "ISBN", "Author", "Publisher", "Edition", "Genre", "Quantity");
         for (Book book : storage.getBooksList()){
-            System.out.printf("| %-40s | %-40s | %-40s | %-40s | %-20s | %-8s | %n", book.getTitle(), book.getISBN(), book.getAuthor().getPseudonym(), book.getPublisher().getName(), book.getGenre(), book.getQuantity());
+            System.out.printf("| %-40s | %-40s | %-40s | %-40s | %-20s |  %-20s | %-8s | %n", book.getTitle(), book.getISBN(), book.getAuthor().getPseudonym(), book.getPublisher().getName(), book.getPublisher().getEdizione() ,book.getGenre(), book.getQuantity());
         }
-        System.out.printf("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
+        System.out.printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
 
     }
 
+    /**
+     * search the book
+     */
     public void Option2(){
         System.out.println("Please enter the book title or its ISBN: ");
         input.nextLine(); // consume the leftover newline
@@ -138,6 +150,9 @@ public class UI {
         System.out.println(storage.searchBook(bookTitle));
     }
 
+    /**
+     * add a new book
+     */
     public void Option3(){
         System.out.println("Please add the information the right order and separate parameters by the semicolon: ");
         System.out.println("book title, ISBN, author name, author surname, author pseudonym (optional), publisher name, edition, genre, quantity");
@@ -158,6 +173,7 @@ public class UI {
             int quantity;
             try {
 
+
                 quantity = Integer.parseInt(newBook[8].replaceAll(" ", ""));
 
             } catch (NumberFormatException e) {
@@ -171,6 +187,9 @@ public class UI {
         }
     }
 
+    /**
+     * remove the book if the book is not the list then it will be back to main menu
+     */
     public void Option4(){
         System.out.println("Please enter the book title or its ISBN: ");
         input.nextLine(); // consume the leftover newline
@@ -178,22 +197,35 @@ public class UI {
         storage.removeBook(bookTitle);
     }
 
+    /**
+     * change the total sum of books
+     */
     public void Option5(){
         System.out.println("Please enter the book title or its ISBN: ");
         input.nextLine(); // consume the leftover newline
         String bookTitle = input.nextLine();
         Book book = storage.searchBook(bookTitle);
         System.out.println("Please enter total sum of book: ");
-        int bookQuantity = input.nextInt();
-        book.setQuantity(bookQuantity);
+        if (input.hasNextInt()){
+            int bookQuantity = input.nextInt();
+            book.setQuantity(bookQuantity);
+        }
+        else {
+            System.out.println("Please enter a number");
+            return;
+        }
     }
 
+    /**
+     * modify all the parameters of the book
+     */
     public void Option6(){
         System.out.println("Please enter the book title or its ISBN: ");
         input.nextLine(); // consume the leftover newline
         String bookTitle = input.nextLine();
         Book book = storage.searchBook(bookTitle);
         System.out.println(storage.searchBook(bookTitle));
+        System.out.println("For the author: you have to specific the name or surname like (author name) or (author surname) in prompt as option");
         System.out.println("Please enter what to change: ");
         String change = input.nextLine();
         if (change.equals("title")){
@@ -225,45 +257,60 @@ public class UI {
         else if (change.equals("quantity")){
             book.setQuantity(input.nextInt());
         }
+        System.out.println(storage.searchBook(bookTitle));
     }
+
+    /**
+     * add more books using a csv file
+     */
     public void Option7(){
         System.out.print("Enter file path: ");
         input.nextLine();
         String filePath = input.nextLine(); // Trim unnecessary spaces
-        File file = new File(filePath);
-        if (Files.exists(Path.of(filePath))) {
-            System.out.println("File exists.");
-        } else {
-            System.out.println("File does not exist.");
-        }
         try {
-            List<String> newBook = Files.readAllLines(file.toPath());
-            for (String bookTitle : newBook){
-                String bookTitle1 = bookTitle.split(";")[0];
-                String ISBN = bookTitle.split(";")[1];
-                String authorName = bookTitle.split(";")[2];
-                String authorSurname = bookTitle.split(";")[3];
-                String authorPseudonym = bookTitle.split(";")[4];
-                String publisherName = bookTitle.split(";")[5];
-                String publisherEdition = bookTitle.split(";")[6];
-                String genre = bookTitle.split(";")[7];
-                int quantity;
-                try {
-                    quantity = Integer.parseInt(bookTitle.split(";")[8].replaceAll(" ", ""));
-
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid number format for quantity.");
-                    return;
-                }
-                Author newAuthor = new Author(authorName, authorSurname, authorPseudonym);
-                Publisher newPublisher = new Publisher(publisherName, publisherEdition);
-                Book book = new Book(bookTitle1, ISBN, newAuthor, newPublisher, genre, quantity);
-                storage.addBook(book);
+            File file = new File(filePath);
+            if (Files.exists(Path.of(filePath))) {
+                System.out.println("File exists.");
+            } else {
+                System.out.println("File does not exist.");
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+            try {
+                List<String> newBook = Files.readAllLines(file.toPath());
+                for (String bookTitle : newBook){
+                    try {
+                        String bookTitle1 = bookTitle.split(";")[0];
+                        String ISBN = bookTitle.split(";")[1];
+                        String authorName = bookTitle.split(";")[2];
+                        String authorSurname = bookTitle.split(";")[3];
+                        String authorPseudonym = bookTitle.split(";")[4];
+                        String publisherName = bookTitle.split(";")[5];
+                        String publisherEdition = bookTitle.split(";")[6];
+                        String genre = bookTitle.split(";")[7];
+                        int quantity;
+                        try {
+                            quantity = Integer.parseInt(bookTitle.split(";")[8].replaceAll(" ", ""));
 
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid number format for quantity.");
+                            return;
+                        }
+                        Author newAuthor = new Author(authorName, authorSurname, authorPseudonym);
+                        Publisher newPublisher = new Publisher(publisherName, publisherEdition);
+                        Book book = new Book(bookTitle1, ISBN, newAuthor, newPublisher, genre, quantity);
+                        storage.addBook(book);
+                    } catch (ArrayIndexOutOfBoundsException a) {
+                        System.out.println("There is a missing parameter in the file, please control if the file is correct");
+                        return;
+                    }
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        catch (RuntimeException e){
+            System.out.println("Please do not enter random thing");
+        }
     }
 
 }

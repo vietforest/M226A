@@ -7,6 +7,12 @@ public class Publisher {
     private String edizione;
 
 
+    /**
+     *
+     * @param name
+     * @param edizione
+     */
+
     public Publisher(String name, String edizione) {
         this.name = name;
         this.edizione = edizione;

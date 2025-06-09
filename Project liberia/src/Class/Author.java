@@ -7,11 +7,17 @@ public class Author {
     private String surname;
     private String pseudonym;
 
+    /**
+     *
+     * @param name
+     * @param surname
+     * @param pseudonym
+     */
     public Author(String name, String surname, String pseudonym) {
         this.name = name;
         this.surname = surname;
 
-        if (pseudonym != null || !pseudonym.equals("")) {
+        if (pseudonym != null && !pseudonym.equals("")) {
             this.pseudonym = pseudonym;
         }
         else {
@@ -24,7 +30,7 @@ public class Author {
     }
 
     public void setName(String name) {
-        this.name = name;
+            this.name = name;
     }
 
     public String getSurname() {

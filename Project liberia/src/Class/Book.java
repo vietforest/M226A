@@ -10,7 +10,20 @@ public class Book {
     private String genre;
     private int quantity;
 
+    /**
+     *
+     */
     public  Book(){};
+
+    /**
+     *
+     * @param title
+     * @param ISBN
+     * @param author
+     * @param publisher
+     * @param genre
+     * @param quantity
+     */
     public Book(String title, String ISBN, Author author, Publisher publisher, String genre, int quantity) {
         this.title = title;
         this.ISBN = ISBN;
@@ -65,9 +78,17 @@ public class Book {
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
+        try {
+            this.quantity = quantity;
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Book: " +
@@ -76,6 +97,7 @@ public class Book {
                 ", author= " + author.getName() + " " + author.getSurname() +
                 ", Pseudonym= " + author.getPseudonym() +
                 ", publisher= " + publisher.getName() +
+                ", edition= " + publisher.getEdizione() +
                 ", genre= '" + genre + '\'' +
                 ", quantity= " + quantity;
     }

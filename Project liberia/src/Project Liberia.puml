@@ -1,0 +1,93 @@
+
+@startuml
+skinparam classAttributeIconSize 0
+
+class Author{
+- name: String
+- surname: String
+- pseudonym: String
++ Author(name: String, surname: String, pseudonym: String)
++ getName(): String
++ setName(name: String): void
++ getSurname(): String
++ setSurname(surname: String): void
++ getPseudonym(): String
++ setPseudonym(pseudonym: String): void
++ equals(o: Object): boolean
++ hashCode(): int
+}
+
+class Publisher{
+- name: String
+- edizione: String
++ Publisher(name: String, edizione: String)
++ getName(): String
++ setName(name: String): void
++ getEdizione(): String
++ setEdizione(edizione: String): void
++ equals(o: Object): boolean
++ hashCode(): int
+}
+
+
+class Book{
+- title: String
+- ISBN: String
+- author: Author
+- publisher: Publisher
+- genre: String
+- quantity: int
++ Book()
++ Book(title: String, ISBN: String, author: Author, publisher: Publisher, genre: String, quantity: int)
++ getTitle(): String
++ setTitle(title: String): void
++ getISBN(): String
++ setISBN(ISBN: String): void
++ getAuthor(): Author
++ setAuthor(author: Author): void
++ getPublisher(): Publisher
++ setPublisher(publisher: Publisher): void
++ getGenre(): String
++ setGenre(genre: String): void
++ getQuantity(): int
++ setQuantity(quantity: int): void
++ toString(): String
++ equals(o: Object): boolean
++ hashCode(): int
+}
+
+class Storage{
+- booksList: ArrayList<Book>
++ Storage()
++ Storage(booksList: ArrayList<Book>)
++ getBooksList(): ArrayList<Book>
++ setBooksList(booksList: ArrayList<Book>): void
++ addBook(book: Book): void
++ removeBook(book: String): void
++ searchBook(book: String): Book
++ equals(o: Object): boolean
++ hashCode(): int
+}
+
+class UI{
+- menuCase: int
+- flag: boolean
+- storage: Storage
+- input: Scanner
++ UI()
++ Start(): void
++ Option0(): void
++ Option1(): void
++ Option2(): void
++ Option3(): void
++ Option4(): void
++ Option5(): void
++ Option6(): void
++ Option7(): void
+}
+
+Storage o---- "*" Book
+Book "1"----"1"Publisher
+Book "1"----"1"Author
+Storage "1"---"1"UI
+@enduml
